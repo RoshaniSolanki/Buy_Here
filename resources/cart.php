@@ -25,14 +25,7 @@
         set_message("We only have " . $row['product_quantity'] . " " . "{$row['product_title']}" . " available");
         redirect("../public/checkout.php");
 
-
-
       }
-
-
-
-
-
 
     }
 
@@ -114,7 +107,7 @@ $product = <<<DELIMETER
 <tr>
   <td>{$row['product_title']}<br>
 
-  <img width='100' src='../resources/{$product_image}'>
+  <img width='100' src='../resources/{$product_image}' alt='img'>
 
   </td>
   <td>&#36;{$row['product_price']}</td>

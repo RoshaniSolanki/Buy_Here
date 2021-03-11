@@ -22,7 +22,7 @@
 
 
     <div class="form-group">
-           <label for="product-title">Product Description</label>
+           <label for="product-description">Product Description</label>
       <textarea name="product_description" id="" cols="30" rows="10" class="form-control"></textarea>
     </div>
 
@@ -37,8 +37,8 @@
     </div>
 
     <div class="form-group">
-           <label for="product-title">Product Short Description</label>
-      <textarea name="product_description" id="" cols="30" rows="3" class="form-control"></textarea>
+           <label for="product-short-description">Product Short Description</label>
+      <textarea name="short_desc" id="" cols="30" rows="3" class="form-control"></textarea>
     </div>
 
 
@@ -63,25 +63,20 @@
      <!-- Product Categories-->
 
     <div class="form-group">
-         <label for="product-title">Product Category</label>
-        <select name="product_category" id="" class="form-control">
+         <label for="product-category">Product Category</label>
+        <select name="product_category_id" id="" class="form-control">
             <option value="">Select Category</option>
-           
+            
+            <?php show_categories_add_product_page(); ?>
+
         </select>
 
 
 </div>
 
-
-
-
-
-    <!-- Product Brands-->
-
-
     <div class="form-group">
-      <label for="product-title">Product Quantity</label>
-         <input type="number" class="form-control">
+      <label for="product-quantity">Product Quantity</label>
+         <input type="number" name="product_quantity" class="form-control">
     </div>
 
 
@@ -96,7 +91,7 @@
 
     <!-- Product Image -->
     <div class="form-group">
-        <label for="product-title">Product Image</label>
+        <label for="product-image">Product Image</label>
         <input type="file" name="file">
       
     </div>
