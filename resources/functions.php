@@ -383,7 +383,7 @@ DELIMETER;
 
 function update_product() {
 
-    if(isset($_POST['publish'])) {
+    if(isset($_POST['update'])) {
 
        $product_title           = escape_string($_POST['product_title']);
        $product_category_id     = escape_string($_POST['product_category_id']);
@@ -393,6 +393,18 @@ function update_product() {
        $product_quantity        = escape_string($_POST['product_quantity']);
        $product_image           = escape_string($_FILES['file']['name']);
        $image_temp_location     = escape_string($_FILES['file']['tmp_name']);
+
+       if(empty($product_image)) {
+
+            $get_pic = query("SELECT product_image FROM products WHERE product_id =".escape_string($_GET['id'])." ");
+            confirm($get_pic);
+
+            while($pic = fetch_array($get_pic)) {
+
+                $product_image = $pic['product_image'];
+
+            }
+       }
        
        move_uploaded_file($image_temp_location, UPLOAD_DIRECTORY . DS . $product_image);
        //move_uploaded_file($image_temp_location,"C://xampp/htdocs/Roshani_php/Buy_Here/resources/uploads/".$product_image);
@@ -405,13 +417,66 @@ function update_product() {
        $query .="short_desc            = '{$short_desc}'           , ";
        $query .="product_quantity      = '{$product_quantity}'     , ";
        $query .="product_image         = '{$product_image}'          ";
-       $query .="WHERE product_id" . escape_string($_GET['id']);
+       $query .="WHERE product_id=" . escape_string($_GET['id']);
 
-       confirm($query);
+       $send_update_query = query($query);
+       confirm($send_update_query);
        set_message("Product has been updated");
        redirect("index.php?products");
     }
 
 }
+
+
+
+/************************** Categories in Admin ************************/
+
+function show_categories_in_admin() {
+
+    $category_query = query("SELECT * FROM categories");
+    confirm($category_query);
+
+    while($row = fetch_array($category_query)) {
+
+        $cat_id = $row['cat_id'];
+        $cat_title = $row['cat_title'];
+
+        $category = <<<DELIMETER
+
+        <tr>
+            <td>{$cat_id}</td>
+            <td>{$cat_title}</td>
+            <td><a class="btn btn-danger" href="../../resources/templates/back/delete_category.php?id={$row['cat_id']}"><span class="glyphicon glyphicon-remove"></span></a></td>
+        </tr>
+
+DELIMETER;
+
+echo $category;
+    }
+
+}
+
+function add_category() {
+
+    if(isset($_POST['add_category'])) {
+
+        $cat_title = escape_string($_POST['cat_title']);
+
+        if(empty($cat_title) || $cat_title == " ") {
+
+            echo "<p class='bg-danger'>This can't be empty</p>";
+        }else{
+
+        $insert_cat = query("INSERT INTO categories(cat_title) VALUES('{$cat_title}')");
+        confirm($insert_cat);
+
+        set_message("Category Created");
+        }
+
+        
+    }
+}
+
+
 
 ?>
