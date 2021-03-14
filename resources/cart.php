@@ -151,7 +151,7 @@ $_SESSION['item_quantity'] = $item_quantity;
 
 }
 
-/*
+
 function show_paypal() {
 
 
@@ -173,7 +173,7 @@ return $paypal_button;
 
 
 }
-*/
+
 
 
 function process_transaction() {

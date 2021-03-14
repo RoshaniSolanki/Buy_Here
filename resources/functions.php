@@ -71,7 +71,7 @@ function fetch_array($result) {
 
 function get_products() {
     
-$query = query("SELECT * FROM products");    
+$query = query("SELECT * FROM products WHERE product_quantity >=1");    
 confirm($query);
     
 while($row = fetch_array($query)) {
@@ -126,7 +126,7 @@ echo $category_links;
 
 function get_products_in_cat_page() {
     
-$query = query("SELECT * FROM products WHERE product_category_id = ". escape_string($_GET['id']) ."");    
+$query = query("SELECT * FROM products WHERE product_category_id = ". escape_string($_GET['id']) ." AND product_quantity>=1 ");    
 confirm($query);
     
 while($row = fetch_array($query)) {
@@ -211,7 +211,7 @@ function send_message() {
 function get_products_in_shop_page() {
 
 
-    $query = query(" SELECT * FROM products");
+    $query = query(" SELECT * FROM products WHERE product_quantity >=1");
     confirm($query);
     
     while($row = fetch_array($query)) {
@@ -476,6 +476,89 @@ function add_category() {
         
     }
 }
+
+
+
+/*************************** Admin Users ***************************/
+
+function display_users() {
+
+    $category_query = query("SELECT * FROM users");
+    confirm($category_query);
+
+    while($row = fetch_array($category_query)) {
+
+        $user_id = $row['user_id'];
+        $username = $row['username'];
+        $email = $row['email'];
+        $password = $row['password'];
+
+        $user = <<<DELIMETER
+
+        <tr>
+            <td>{$user_id}</td>
+            <td>{$username}</td>
+            <td>{$email}</td>
+            <td><a class="btn btn-danger" href="../../resources/templates/back/delete_user.php?id={$row['user_id']}"><span class="glyphicon glyphicon-remove"></span></a></td>
+        </tr>
+
+DELIMETER;
+
+echo $user;
+
+
+    }
+
+
+}
+
+function add_user() {
+
+    if(isset($_POST['add_user'])) {
+
+        $username   = escape_string($_POST['username']);
+        $email      = escape_string($_POST['email']);
+        $password   = escape_string($_POST['password']);
+        //$user_photo = escape_string($_FILES['file']['name']);
+        //$photo_temp = escape_string($_FILES['file']['tmp_name']);
+
+       // move_uploaded_file($photo_temp, UPLOAD_DIRECTORY . DS . $user_photo);
+
+        $query = query("INSERT INTO users(username,email,password) VALUES('{$username}','{$email}','{$password}')");
+        confirm($query);
+
+        set_message("USER CREATED");
+
+        redirect("index.php?users");
+    }
+
+}
+
+function get_reports() {
+
+    $query = query("SELECT * FROM reports");    
+    confirm($query);
+        
+    while($row = fetch_array($query)) {
+        
+    $report = <<<DELIMETER
+    
+            <tr>
+                <td>{$row['report_id']}</td>
+                <td>{$row['product_id']}</td>
+                <td>{$row['order_id']}</td>
+                <td>{$row['product_price']}</td>
+                <td>{$row['product_title']}
+                <td>{$row['product_quantity']}</td>
+                <td><a class="btn btn-danger" href="../../resources/templates/back/delete_report.php?id={$row['report_id']}"><span class="glyphicon glyphicon-remove"></span></a></td>
+            </tr>
+                        
+    DELIMETER;
+    
+    echo $report;
+    }
+    
+    }
 
 
 
