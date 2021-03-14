@@ -27,7 +27,7 @@
           </tr>
         </thead>
         <tbody>
-            <?php @cart(); ?>
+            <?php cart(); ?>
         </tbody>
     </table>
     <?php echo show_paypal(); ?>
