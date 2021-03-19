@@ -184,16 +184,17 @@ function login_user() {
 function send_message() {
     
     if(isset($_POST['submit'])) {
-        
-       $to = "someEmail@gmail.com";  
+
+       
+       $to = "solankirina50976@gmail.com";  
        $from_name = $_POST['name'];
        $subject = $_POST['subject'];
        $email = $_POST['email'];
-       $message = $_POST['message'];
+       $body = $_POST['message'];
         
         $headers = "From: {$from_name} {$email}";
         
-       $result = mail($to , $subject , $message ,$headers);
+       $result = mail($to, $subject, $body, $headers);
         
         if(!$result) {
             set_message("Sorry we could not send your message");
