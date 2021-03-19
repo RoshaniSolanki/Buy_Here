@@ -3,7 +3,7 @@
 <div class="row">
                     <div class="col-lg-12">
                         <h1 class="page-header">
-                            Dashboard <small>Statistics Overview</small>
+                            Dashboard
                         </h1>
                         <ol class="breadcrumb">
                             <li class="active">
@@ -17,7 +17,7 @@
                 <!-- /.row -->
                 <div class="row">
 
-                            <div class="col-lg-4 col-md-6">
+                    <div class="col-lg-4 col-md-6">
                         <div class="panel panel-yellow">
                             <div class="panel-heading">
                                 <div class="row">
@@ -25,12 +25,18 @@
                                         <i class="fa fa-shopping-cart fa-5x"></i>
                                     </div>
                                     <div class="col-xs-9 text-right">
-                                        <div class="huge">124</div>
+                                        <?php
+                                        
+                                            $query = "SELECT * FROM orders";
+                                            $select_all_orders = mysqli_query($connection, $query);
+                                            $order_counts = mysqli_num_rows($select_all_orders);
+                                            echo "<div class='huge'>{$order_counts}</div>"
+                                        ?>  
                                         <div>New Orders!</div>
                                     </div>
                                 </div>
                             </div>
-                            <a href="#">
+                            <a href="index.php?orders">
                                 <div class="panel-footer">
                                     <span class="pull-left">View Details</span>
                                     <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -49,12 +55,18 @@
                                         <i class="fa fa-support fa-5x"></i>
                                     </div>
                                     <div class="col-xs-9 text-right">
-                                        <div class="huge">13</div>
+                                    <?php
+                                        
+                                        $query = "SELECT * FROM products";
+                                        $select_all_products = mysqli_query($connection, $query);
+                                        $product_counts = mysqli_num_rows($select_all_products);
+                                        echo "<div class='huge'>{$product_counts}</div>"
+                                    ?>
                                         <div>Products!</div>
                                     </div>
                                 </div>
                             </div>
-                            <a href="#">
+                            <a href="index.php?products">
                                 <div class="panel-footer">
                                     <span class="pull-left">View Details</span>
                                     <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -72,12 +84,18 @@
                                         <i class="fa fa-tasks fa-5x"></i>
                                     </div>
                                     <div class="col-xs-9 text-right">
-                                        <div class="huge">12</div>
+                                    <?php
+                                        
+                                        $query = "SELECT * FROM categories";
+                                        $select_all_category = mysqli_query($connection, $query);
+                                        $category_counts = mysqli_num_rows($select_all_category);
+                                        echo "<div class='huge'>{$category_counts}</div>"
+                                    ?>
                                         <div>Categories!</div>
                                     </div>
                                 </div>
                             </div>
-                            <a href="#">
+                            <a href="index.php?categories">
                                 <div class="panel-footer">
                                     <span class="pull-left">View Details</span>
                                     <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
