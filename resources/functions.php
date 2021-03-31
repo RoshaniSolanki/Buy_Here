@@ -387,7 +387,7 @@ function send_message() {
     if(isset($_POST['submit'])) {
 
        
-       $to = "solankirina50976@gmail.com";  
+       $to = "sroshani025@gmail.com";  
        $from_name = $_POST['name'];
        $subject = $_POST['subject'];
        $email = $_POST['email'];
@@ -542,7 +542,7 @@ function add_product() {
     if(isset($_POST['publish'])) {
 
        $product_title           = escape_string($_POST['product_title']);
-       $product_category_id     = escape_string($_POST['product_category_id']);
+       $product_category        = escape_string($_POST['product_category_id']);
        $product_price           = escape_string($_POST['product_price']);
        $product_description     = escape_string($_POST['product_description']);
        $short_desc              = escape_string($_POST['short_desc']);
