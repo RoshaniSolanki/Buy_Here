@@ -70,24 +70,13 @@
             <?php show_categories_add_product_page(); ?>
 
         </select>
-
-
-</div>
+    </div>
 
     <div class="form-group">
       <label for="product-quantity">Product Quantity</label>
          <input type="number" name="product_quantity" class="form-control">
     </div>
 
-
-<!-- Product Tags -->
-
-
-    <!--div class="form-group">
-          <label for="product-title">Product Keywords</label>
-          <hr>
-        <input type="text" name="product_tags" class="form-control">
-    </div-->
 
     <!-- Product Image -->
     <div class="form-group">
