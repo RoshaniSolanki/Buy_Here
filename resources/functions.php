@@ -425,7 +425,7 @@ function get_products_in_shop_page() {
     
                 <div class="col-md-3 col-sm-6 hero-feature">
                     <div class="thumbnail">
-                        <img src="../resources/{$product_image}" alt="img">
+                        <img src="../resources/{$product_image}" alt="img" style="height:100px;width:600px;">
                         <div class="caption">
                             <h3>{$row['product_title']}</h3>
                             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
@@ -508,7 +508,7 @@ $product = <<<DELIMETER
         <tr>
             <td>{$row['product_id']}</td>
             <td>{$row['product_title']} <br>
-            <a href="index.php?edit_product&id={$row['product_id']}"><img width='100' src="../../resources/{$product_image}" alt="img"></a>
+            <a href="index.php?edit_product&id={$row['product_id']}"><img width='100' height='50' src="../../resources/{$product_image}" alt="img"></a>
             </td>
             <td>{$category}</td>
             <td>{$row['product_price']}</td>
@@ -549,9 +549,26 @@ function add_product() {
        $product_quantity        = escape_string($_POST['product_quantity']);
        $product_image           = escape_string($_FILES['file']['name']);
        $image_temp_location     = escape_string($_FILES['file']['tmp_name']);
-       
-       //move_uploaded_file($image_temp_location, UPLOAD_DIRECTORY . DS . $product_image);
-       move_uploaded_file($image_temp_location,'../../uploads/'.$product_image);
+      /*  $product_image           = escape_string($_FILES['file']);
+        $product_image_name      = $product_image['name'];
+        $product_image_tmp_loc   = $product_image['tmp_name'];
+        $product_image_extension = explode('.',$product_image_name);
+        $product_image_check     = strtolower(end($product_image_extension));
+        $product_image_extstored = array('png', 'jpg', 'jpeg');
+
+            if(in_array($product_image_check, $product_image_extstored)) {
+                if(!is_dir("../uploads/")) {
+                    mkdir('../uploads/');
+                }
+            }else {
+                echo "Display Picture Upload failed";
+            }
+            
+            $product_image_destination = '../uploads/' .$product_image_check;
+            move_uploaded_file($product_image_tmp_loc, $product_image_destination);
+      
+       */
+       move_uploaded_file($image_temp_location, UPLOAD_DIRECTORY . DS . $product_image);
 
        $query = query("INSERT INTO products(product_title, product_category_id, product_price, product_description, short_desc, product_quantity, product_image) VALUES('{$product_title}', '{$product_category_id}', '{$product_price}', '{$product_description}', '{$short_desc}', '{$product_quantity}', '{$product_image}')");
        $last_id = last_id();
