@@ -69,72 +69,6 @@ function fetch_array($result) {
 
 // get products
 
-/*function get_products() {
-    
-$query = query("SELECT * FROM products WHERE product_quantity >=1");    
-confirm($query);
-
-$rows = mysqli_num_rows($query);
-
-if(isset($_GET['page'])) {
-
-    $page =preg_replace('#[^0-9]#', '', $_GET['page']);
-
-} else {
-    $page = 1;
-} 
-
-$perPage = 6;
-
-$lastPage = ceil($rows / $perPage);
-
-if($page < 1) {
-
-    $page =1;
-
-}elseif($page > $lastPage) {
-
-    $page = $lastPage;
-
-}
-
-$middleNumbers = '';
-
-$sub1 = $page - 1;
-$sub2 = $page - 2;
-$add1 = $page + 1;
-$add2 = $page + 2;
-
-
-    
-while($row = fetch_array($query)) {
-
-$product_image = display_image($row['product_image']);
-    
-$product = <<<DELIMETER
-
-      <div class="col-sm-4 col-lg-4 col-md-4">
-            <div class="thumbnail">
-                <a href="item.php?id={$row['product_id']}"><img style="height:90px" src="../../resources/{$product_image}" alt="img"></a>
-                <div class="caption">
-                    <h4 class="pull-right">&#36;{$row['product_price']}</h4>
-                    <h4><a href="item.php?id={$row['product_id']}">{$row['product_title']}</a>
-                    </h4>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean consequat auctor vulputate.</p>
-                    <a class="btn btn-primary" target="_blank" href="../resources/cart.php?add={$row['product_id']}">Add to cart</a>
-                </div>
-                            
-            </div>
-        </div>
-                    
-DELIMETER;
-
-echo $product;
-}
-    
-}
-*/
-
 function get_products() {
 
 
@@ -283,7 +217,7 @@ function get_products() {
                 <h4 class="pull-right">&#36;{$row['product_price']}</h4>
                 <h4><a href="item.php?id={$row['product_id']}">{$row['product_title']}</a>
                 </h4>
-                <p>See more snippets like this online store item at <a target="_blank" href="http://www.bootsnipp.com">Bootsnipp - http://bootsnipp.com</a>.</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
                  <a class="btn btn-primary" target="_blank" href="../resources/cart.php?add={$row['product_id']}">Add to cart</a>
             </div>
     
@@ -338,7 +272,7 @@ $product = <<<DELIMETER
 
       <div class="col-md-3 col-sm-6 hero-feature">
                 <div class="thumbnail">
-                    <img src="../resources/{$product_image}" alt="img">
+                    <img src="../resources/{$product_image}" alt="img" style="height:150px">
                     <div class="caption">
                         <h3>{$row['product_title']}</h3>
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
@@ -360,27 +294,68 @@ echo $product;
 
 
 
-function login_user() {
+/*function login_user() {
     
     if(isset($_POST['submit'])) {
         $username = escape_string($_POST['username']);
         $password = escape_string($_POST['password']);
         
-        $query = query("SELECT * FROM users WHERE username = '{$username}' AND password = '{$password}'");
+        $query = query("SELECT * FROM users WHERE username = '{$username}' ");
         confirm($query);
-        
-        
-        if(mysqli_num_rows($query) == 0) {
-            set_message("Your Password or Username are wrong");
-            redirect("login.php");
-        }else {
+
+        while($row = mysqli_fetch_assoc($query)) {
+            $db_user_id  = $row['user_id'];
+            $db_username = $row['username'];
+            $db_email    = $row['email'];
+            $db_password = $row['password'];
+        }
+        if($username === "admin") {
+             redirect("admin");
+        } else {
+            if(password_verify($password, $db_password)) {
+
+                $_SESSION['user_id']  = $db_user_id;
+                $_SESSION['username'] = $db_username;
+                $_SESSION['email']    = $db_email;
+                $_SESSION['password'] = $db_password;
+
+                redirect("index.php");
             
-            $_SESSION['username'] = $username;
-            redirect("admin");
+            } else {
+
+            set_message("Your Password is wrong");
+            redirect("login.php");
+
         }
     }
-}
+    }
+}*/
 
+
+function login_user(){
+
+    if(isset($_POST['submit'])){
+    
+    $username = escape_string($_POST['username']);
+    $password = escape_string($_POST['password']);
+    
+    $query = query("SELECT * FROM users WHERE username = '{$username}' AND password = '{$password }' ");
+    confirm($query);
+    
+    if(mysqli_num_rows($query) == 0) {
+    
+    set_message("Your Password or Username are wrong");
+    redirect("login.php");
+    
+    
+    } else {
+    
+    $_SESSION['username'] = $username;
+    redirect("admin");
+    
+    }
+}
+}
 
 function send_message() {
     
@@ -472,7 +447,7 @@ function display_orders() {
         <td>{$row['order_transaction']}</td>
         <td>{$row['order_currency']}</td>
         <td>{$row['order_status']}</td>
-        <td><a class="btn btn-danger" href="../../resources/templates/back/delete_order.php?id={$row['order_id']}"><span class="glyphicon glyphicon-remove"></span></a></td>
+        <td><a onClick="return confirm('Are you sure you want to delete this order');" class="btn btn-danger" href="../../resources/templates/back/delete_order.php?id={$row['order_id']}"><span class="glyphicon glyphicon-remove"></span></a></td>
         </tr>
 
 DELIMETER;
@@ -513,7 +488,7 @@ $product = <<<DELIMETER
             <td>{$category}</td>
             <td>{$row['product_price']}</td>
             <td>{$row['product_quantity']}</td>
-            <td><a class="btn btn-danger" href="../../resources/templates/back/delete_product.php?id={$row['product_id']}"><span class="glyphicon glyphicon-remove"></span></a></td>
+            <td><a onClick="return confirm('Are you sure you want to delete this product');" class="btn btn-danger" href="../../resources/templates/back/delete_product.php?id={$row['product_id']}"><span class="glyphicon glyphicon-remove"></span></a></td>
         </tr>
                     
 DELIMETER;
@@ -665,7 +640,7 @@ function show_categories_in_admin() {
         <tr>
             <td>{$cat_id}</td>
             <td>{$cat_title}</td>
-            <td><a class="btn btn-danger" href="../../resources/templates/back/delete_category.php?id={$row['cat_id']}"><span class="glyphicon glyphicon-remove"></span></a></td>
+            <td><a onClick="return confirm('Are you sure you want to delete this category');" class="btn btn-danger" href="../../resources/templates/back/delete_category.php?id={$row['cat_id']}"><span class="glyphicon glyphicon-remove"></span></a></td>
         </tr>
 
 DELIMETER;
@@ -718,7 +693,7 @@ function display_users() {
             <td>{$user_id}</td>
             <td>{$username}</td>
             <td>{$email}</td>
-            <td><a class="btn btn-danger" href="../../resources/templates/back/delete_user.php?id={$row['user_id']}"><span class="glyphicon glyphicon-remove"></span></a></td>
+            <td><a onClick="return confirm('Are you sure you want to delete this user');" class="btn btn-danger" href="../../resources/templates/back/delete_user.php?id={$row['user_id']}"><span class="glyphicon glyphicon-remove"></span></a></td>
         </tr>
 
 DELIMETER;
@@ -738,10 +713,8 @@ function add_user() {
         $username   = escape_string($_POST['username']);
         $email      = escape_string($_POST['email']);
         $password   = escape_string($_POST['password']);
-        //$user_photo = escape_string($_FILES['file']['name']);
-        //$photo_temp = escape_string($_FILES['file']['tmp_name']);
 
-       // move_uploaded_file($photo_temp, UPLOAD_DIRECTORY . DS . $user_photo);
+        $password = password_hash($password, PASSWORD_BCRYPT, array('cost'=> 12 ));
 
         $query = query("INSERT INTO users(username,email,password) VALUES('{$username}','{$email}','{$password}')");
         confirm($query);
@@ -769,7 +742,7 @@ function get_reports() {
                 <td>{$row['product_price']}</td>
                 <td>{$row['product_title']}
                 <td>{$row['product_quantity']}</td>
-                <td><a class="btn btn-danger" href="../../resources/templates/back/delete_report.php?id={$row['report_id']}"><span class="glyphicon glyphicon-remove"></span></a></td>
+                <td><a onClick="return confirm('Are you sure you want to delete this record');" class="btn btn-danger" href="../../resources/templates/back/delete_report.php?id={$row['report_id']}"><span class="glyphicon glyphicon-remove"></span></a></td>
             </tr>
                         
     DELIMETER;
@@ -818,7 +791,7 @@ function get_current_slide_in_admin() {
 
         $slide_active_admin = <<<DELIMETER
 
-        <img class="img-responsive" src="../resources/{$slide_image}" alt="img">
+        <img class="img-responsive" src="../../resources/{$slide_image}" alt="img" width="500">
    
 DELIMETER;
 

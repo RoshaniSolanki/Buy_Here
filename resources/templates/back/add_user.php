@@ -18,11 +18,11 @@
 
   <div class="col-md-6">
 
-     <div class="form-group">
+     <!--div class="form-group">
      
       <input type="file" name="file">
          
-     </div>
+     </div-->
 
 
      <div class="form-group">
@@ -60,9 +60,9 @@
 
       <div class="form-group">
 
-      <a id="user-id" class="btn btn-danger" href="">Delete</a>
+      <!--a id="user-id" class="btn btn-danger" href="">Delete</a-->
 
-      <input type="submit" name="add_user" class="btn btn-primary pull-right" value="Add User" >
+      <input type="submit" name="add_user" class="btn btn-primary" value="Add User" >
          
      </div>
 

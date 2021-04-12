@@ -19,9 +19,9 @@
                 <div class="form-group">
                   <input type="submit" name="submit" class="btn btn-primary" >
                 </div>
-                <div class="form-group">
+                <!--div class="form-group">
                   <p>New Customer?<a href="register.php"> Register</a></p>
-                </div>
+                </div-->
                 
             </form>
         </div>  

@@ -80,8 +80,8 @@
 
      
      <div class="form-group">
-       <input type="submit" name="draft" class="btn btn-warning btn-lg" value="Draft">
-        <input type="submit" name="update" class="btn btn-primary btn-lg" value="Update">
+       <!--input type="submit" name="draft" class="btn btn-warning btn-lg" value="Draft"-->
+        <center><input type="submit" name="update" class="btn btn-primary btn-lg" value="Update"></center>
     </div>
 
 
@@ -103,16 +103,6 @@
       <label for="product-quantity">Product Quantity</label>
          <input type="number" name="product_quantity" class="form-control" value="<?php echo $product_quantity;?>">
     </div>
-
-
-<!-- Product Tags -->
-
-
-    <!--div class="form-group">
-          <label for="product-title">Product Keywords</label>
-          <hr>
-        <input type="text" name="product_tags" class="form-control">
-    </div-->
 
     <!-- Product Image -->
     <div class="form-group">
